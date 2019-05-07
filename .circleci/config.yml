@@ -23,7 +23,7 @@ jobs:
 workflows:
   # version: 2 is required
   version: 2
-  context: master
   prepare_build:
     jobs:
-      - get_configuration
+      - get_configuration:
+        context: master
