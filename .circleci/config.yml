@@ -1,0 +1,12 @@
+# run = comprised of multiple jobs
+# job = must either:
+## contain a job named "build"
+## must be a workflow
+# workflow = can run jobs in parallel
+version: 2.1
+jobs:
+  # the "build" job is required unless you are utilizing a workflow
+  build:
+    steps:
+      - hello_world:
+          command: echo "Hello World"
