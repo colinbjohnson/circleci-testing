@@ -26,4 +26,4 @@ workflows:
   prepare_build:
     jobs:
       - get_configuration:
-          context: master
+          context: ${CIRCLE_BRANCH}
