@@ -5,9 +5,9 @@
 # workflow = can run jobs in parallel
 version: 2.1
 jobs:
-  context: master
   # the "build" job is required unless you are utilizing a workflow
   build:
+    context: master
     # unsure if context is available here
     # how to choose an executor type?
     # https://circleci.com/docs/2.0/executor-types/
