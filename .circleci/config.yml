@@ -7,7 +7,6 @@ version: 2.1
 jobs:
   # the "build" job is required unless you are utilizing a workflow
   build:
-    context: master
     # unsure if context is available here
     # how to choose an executor type?
     # https://circleci.com/docs/2.0/executor-types/
@@ -23,5 +22,6 @@ jobs:
           name: Hello World
           command: echo 'Hello World'
       - run:
+          context: master
           name: Database Configuration
           command: echo "Database Host is $DB_HOSTNAME"
