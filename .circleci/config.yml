@@ -27,6 +27,8 @@ jobs:
           command: echo "Database Host is $DB_HOSTNAME"
 
 workflow:
+  # version: 2 is required
+  version: 2
   context: master
   prepare_build:
     jobs:
