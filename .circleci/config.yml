@@ -7,6 +7,14 @@ version: 2.1
 jobs:
   # the "build" job is required unless you are utilizing a workflow
   build:
+    # how to choose an executor type?
+    # https://circleci.com/docs/2.0/executor-types/
+    docker:
+      # how to choose a docker image?
+      # https://hub.docker.com/u/circleci
+      # https://circleci.com/docs/2.0/circleci-images/
+      # in this case, I'm going to utilize a docker alpine image
+      - image: alpine:latest
     steps:
       - hello_world:
           command: echo "Hello World"
