@@ -22,5 +22,6 @@ jobs:
       - run:
           name: Hello World
           command: echo 'Hello World'
-
-          #CIRCLE_BRANCH
+      - run:
+          name: Database Configuration
+          command: echo "Database Host is $DB_HOSTNAME"
