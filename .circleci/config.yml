@@ -5,12 +5,6 @@
 # workflow = can run jobs in parallel
 version: 2.1
 jobs:
-  build:
-    steps:
-      - run:
-          name: Build Job Start
-          command: echo "Build Job Started Called"
-  # the "build" job is required unless you are utilizing a workflow
   get_configuration:
     # unsure if context is available here
     # how to choose an executor type?
