@@ -20,7 +20,7 @@ jobs:
           name: Database Configuration
           command: echo "Database Host is $DB_HOSTNAME"
 
-workflow:
+workflows:
   # version: 2 is required
   version: 2
   context: master
