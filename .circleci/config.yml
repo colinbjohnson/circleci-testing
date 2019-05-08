@@ -20,7 +20,6 @@ workflows:
     jobs:
       - get_configuration:
           context: prod
-          filter:
+          filters:
             branches:
-              only:
-                - master
+              only: master
