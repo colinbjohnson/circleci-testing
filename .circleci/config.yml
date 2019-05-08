@@ -6,26 +6,21 @@
 version: 2.1
 jobs:
   get_configuration:
-    # unsure if context is available here
-    # how to choose an executor type?
-    # https://circleci.com/docs/2.0/executor-types/
     docker:
-      # how to choose a docker image?
-      # https://hub.docker.com/u/circleci
-      # https://circleci.com/docs/2.0/circleci-images/
-      # in this case, I'm going to utilize a docker alpine image
       - image: alpine:latest
-    environment:
-      CONTEXT_FOR_BRANCH: ${CIRCLE_BRANCH}
     steps:
       - run:
           name: Database Configuration
-          command: echo "Database Host is $DB_HOSTNAME"
+          command: echo "For Database Host is $DB_HOSTNAME"
 
 workflows:
   # version: 2 is required
   version: 2
-  prepare_build:
+  build_and_deploy_prod:
     jobs:
       - get_configuration:
-          context: ${CONTEXT_FOR_BRANCH}
+          context: prod
+          filter:
+            branches:
+              only:
+                - master
