@@ -1,33 +1,45 @@
-# run = comprised of multiple jobs
-# job = must either:
-## contain a job named "build"
-## must be a workflow
-# workflow = can run jobs in parallel
 version: 2.1
+
 jobs:
-  get_configuration:
+
+  build:
     docker:
       - image: alpine:latest
     steps:
       - run:
-          name: Database Configuration
-          command: echo "For Database Host is $DB_HOSTNAME"
+          name: Create File
+          command: echo "File Created by Build Step." > ./build_step_file.txt
+      - run:
+          name: Confirm File
+          command: cat ./build_step_file.txt
+      - run:
+          name: Add CA Certificates to Resolve Persist to Workspace Issue
+          command: apk add --no-cache ca-certificates
+      - persist_to_workspace:
+          # root: ./ persists the working_directory
+          root: ./
+          paths:
+            - build_step_file.txt
+
+  test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Add CA Certificates to Resolve Persist to Workspace Issue
+          command: apk add --no-cache ca-certificates
+      - attach_workspace:
+          at: /
+      - run:
+          name: View File
+          command: cat /build_step_file.txt
 
 workflows:
   # version: 2 is required
   version: 2
-  build_and_deploy_prod:
+  build_and_test:
     jobs:
-      - get_configuration:
-          context: prod
-          filters:
-            branches:
-              only: master
-
-  build_and_deploy_dev:
-    jobs:
-      - get_configuration:
-          context: develop
-          filters:
-            branches:
-              only: develop
+      - build
+      - test:
+          requires:
+            - build
