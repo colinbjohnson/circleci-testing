@@ -31,12 +31,9 @@ jobs:
 workflows:
   # version: 2 is required
   version: 2
-  build:
+  build_and_test:
     jobs:
       - build
-  test:
-    jobs:
-      requires:
-        - build
-      - test
-
+      - test:
+          requires:
+            - build
