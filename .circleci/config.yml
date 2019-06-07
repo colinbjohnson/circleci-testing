@@ -7,10 +7,16 @@ jobs:
     steps:
       - run:
           name: Create File
-          command: echo "File Crerasted by Build Step." > ./build_step_file.txtbuild_step_file.txt
+          command: echo "File Created by Build Step." > ./build_step_file.txtbuild_step_file.txt
       - run:
           name: Confirm File
-          command: cat ./build_step_file.txtbuild_step_file.txt
+          command: cat ./build_step_file.txt
+      - persist_to_workspace:
+          # root: ./ persists the working_directory
+          root: ./
+          paths:
+            - build_step_file.txt
+
   test:
     docker:
       - image: alpine:latest
