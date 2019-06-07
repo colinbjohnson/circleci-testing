@@ -8,6 +8,9 @@ jobs:
       - run:
           name: Create File
           command: echo "File Crerasted by Build Step." > ./build_step_file.txtbuild_step_file.txt
+      - run:
+          name: Confirm File
+          command: cat ./build_step_file.txtbuild_step_file.txt
   test:
     docker:
       - image: alpine:latest
