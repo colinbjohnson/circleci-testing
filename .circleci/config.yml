@@ -3,7 +3,9 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alpine:latest
+      # had to move off of image alpine:latest due to error
+      # when using "persist_to_workspace"
+      - image: ubuntu:latest
     steps:
       - run:
           name: Create File
