@@ -25,6 +25,9 @@ jobs:
     docker:
       - image: alpine:latest
     steps:
+      - run:
+          name: Add CA Certificates to Resolve Persist to Workspace Issue
+          command: apk add --no-cache ca-certificates
       - attach_workspace:
           at: /
       - run:
