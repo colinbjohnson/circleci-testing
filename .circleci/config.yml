@@ -3,9 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      # had to move off of image alpine:latest due to error
-      # when using "persist_to_workspace"
-      - image: ubuntu:latest
+      - image: alpine:latest
     steps:
       - run:
           name: Create File
@@ -13,6 +11,9 @@ jobs:
       - run:
           name: Confirm File
           command: cat ./build_step_file.txt
+      - run:
+          name: Add CA Certificates to Resolve Persist to Workspace Issue
+          command: apk add --no-cache ca-certificates
       - persist_to_workspace:
           # root: ./ persists the working_directory
           root: ./
