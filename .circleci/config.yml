@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: node:14-alpine
     steps:
+      - checkout
       - run:
           name: NPM Audit Started
           command: npm audit    
