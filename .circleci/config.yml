@@ -26,10 +26,10 @@ workflows:
   build:
     jobs:
       - audit:
-        filters:
-          branches:
-            ignore:
-              - develop
+          filters:
+            branches:
+              ignore:
+                - develop
 
   build_develop_branch:
     jobs:
