@@ -2,12 +2,20 @@ version: 2.1
 
 jobs:
 
+  audit:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: NPM Audit Started
+          command: npm audit    
+
   build:
     docker:
       - image: alpine:latest
     steps:
       - run:
-          name: Create File
+          name: Build Step Started
           command: echo "Build Step Called"
 
 workflows:
@@ -17,12 +25,4 @@ workflows:
   build:
     jobs:
       - build
-
-  build_from_tag:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /testing/
+      - audit
