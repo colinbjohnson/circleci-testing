@@ -17,3 +17,12 @@ workflows:
   build:
     jobs:
       - build
+
+  build_from_tag:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /testing/
