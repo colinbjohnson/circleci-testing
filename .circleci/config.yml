@@ -11,7 +11,9 @@ jobs:
           command: echo "Build Step Called"
 
 workflows:
+
   version: 2
-  build_and_test:
+
+  build:
     jobs:
       - build
