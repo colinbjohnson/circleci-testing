@@ -26,3 +26,11 @@ workflows:
     jobs:
       - build
       - audit
+
+  build_develop_branch:
+    jobs:
+      - build
+      - audit:
+          filters:
+            branches:
+              only: develop
