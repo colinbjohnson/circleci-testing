@@ -4,7 +4,7 @@ jobs:
 
   audit:
     docker:
-      - image: alpine:latest
+      - image: node:14-alpine
     steps:
       - run:
           name: NPM Audit Started
