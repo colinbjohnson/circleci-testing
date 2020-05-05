@@ -8,38 +8,10 @@ jobs:
     steps:
       - run:
           name: Create File
-          command: echo "File Created by Build Step." > ./build_step_file.txt
-      - run:
-          name: Confirm File
-          command: cat ./build_step_file.txt
-      - run:
-          name: Add CA Certificates to Resolve Persist to Workspace Issue
-          command: apk add --no-cache ca-certificates
-      - persist_to_workspace:
-          # root: ./ persists the working_directory
-          root: ./
-          paths:
-            - build_step_file.txt
-
-  test:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run:
-          name: Add CA Certificates to Resolve Persist to Workspace Issue
-          command: apk add --no-cache ca-certificates
-      - attach_workspace:
-          at: /
-      - run:
-          name: View File
-          command: cat /build_step_file.txt
+          command: echo "Build Step Called"
 
 workflows:
-  # version: 2 is required
   version: 2
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
