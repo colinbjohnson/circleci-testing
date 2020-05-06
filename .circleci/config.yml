@@ -18,6 +18,9 @@ jobs:
       - run:
           name: Build Step Started
           command: echo "Build Step Called"
+      - run:
+          name: Pausing to Allow Audit to Complete
+          command: sleep 10
 
   deploy:
     docker:
