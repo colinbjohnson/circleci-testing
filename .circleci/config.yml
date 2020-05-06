@@ -19,6 +19,14 @@ jobs:
           name: Build Step Started
           command: echo "Build Step Called"
 
+  deploy:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Deploy Step Started
+          command: echo "Deploy Step Called"
+
 workflows:
 
   version: 2
