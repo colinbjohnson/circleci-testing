@@ -31,7 +31,7 @@ workflows:
 
   version: 2
 
-  build:
+  audit:
     jobs:
       - audit:
           filters:
@@ -44,7 +44,14 @@ workflows:
 
   build_and_deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - /.*/
+            tags:
+              only:
+                - /prod-.*/
       - deploy:
           requires:
             - build
