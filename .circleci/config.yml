@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: node:14-alpine
     steps:
+      - checkout
       - run:
           name: NPM Audit Started
           command: npm audit    
@@ -17,6 +18,17 @@ jobs:
       - run:
           name: Build Step Started
           command: echo "Build Step Called"
+      - run:
+          name: Pausing to Allow Audit to Complete
+          command: sleep 10
+
+  deploy:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Deploy Step Started
+          command: echo "Deploy Step Called"
 
 workflows:
 
@@ -24,5 +36,19 @@ workflows:
 
   build:
     jobs:
+      - audit:
+          filters:
+            branches:
+              ignore:
+                - develop
+
+  build_develop_branch:
+    jobs:
+      - audit:
+          filters:
+            branches:
+              only: develop
       - build
-      - audit
+      - deploy:
+          requires:
+            - build
