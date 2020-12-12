@@ -2,15 +2,6 @@ version: 2.1
 
 jobs:
 
-  audit:
-    docker:
-      - image: node:14-alpine
-    steps:
-      - checkout
-      - run:
-          name: NPM Audit Started
-          command: npm audit    
-
   build:
     docker:
       - image: node:14-alpine
@@ -21,46 +12,10 @@ jobs:
           name: Build Step Started
           command: echo "Build Step Called"
 
-  deploy:
-    docker:
-      - image: node:14-alpine
-    steps:
-      - run:
-          name: Deploy Step Started
-          command: echo "Deploy Step Called"
-
 workflows:
 
   version: 2
 
-  audit:
-    jobs:
-      - audit:
-          filters:
-            branches:
-              only:
-                - /.*/
-            tags:
-              only:
-                - /prod-.*/
-
   build_and_deploy:
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - /.*/
-            tags:
-              only:
-                - /prod-.*/
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore:
-                - /.*/
-            tags:
-              only:
-                - /prod-.*/
+      - build
