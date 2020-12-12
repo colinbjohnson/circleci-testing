@@ -15,6 +15,7 @@ jobs:
     docker:
       - image: node:14-alpine
     steps:
+      - checkout
       - run: ls -la
       - run:
           name: Build Step Started
