@@ -1,16 +1,19 @@
 version: 2.1
 
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.0
+
 jobs:
 
   build:
-    docker:
-      - image: circleci/aws-ecr@6.15.0
     steps:
-      - checkout
+      - aws-ecr/build-and-push-image:
+          repo: bc/paylocity-employee-management
+          tag: << parameters.environment >>-${CIRCLE_SHA1}
       - run: ls -la
-      - run:
-          name: Build Step Started
-          command: echo "Build Step Called"
+      - persist_to_workspace:
+          path: ./ops/infra.yaml
 
 workflows:
 
