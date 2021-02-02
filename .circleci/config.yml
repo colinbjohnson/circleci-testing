@@ -3,12 +3,14 @@ version: 2.1
 jobs:
 
   build:
+    docker:
+      - image: circleci/python:latest
     steps:
-      - run: >
-        aws cloudformation deploy --stack-name cloudavail-s3
-          --template-file ./ops/cloudavail-s3.yaml
-          --parameter-overrides BucketName=cloudavail-s3
-                                Environment=dev
+      - run: |
+          aws cloudformation deploy --stack-name cloudavail-s3 \
+            --template-file ./ops/cloudavail-s3.yaml \
+            --parameter-overrides BucketName=cloudavail-s3 \
+                                  Environment=dev
 
 workflows:
 
