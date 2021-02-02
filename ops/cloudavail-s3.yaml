@@ -15,7 +15,7 @@ Mappings: {}
 
 Resources:
 
-  S3BucketAllowedAlternateegion:
+  S3Bucket:
     Type: AWS::S3::Bucket
     Properties: 
       BucketName: !Sub ${BucketName}-${Environment}
