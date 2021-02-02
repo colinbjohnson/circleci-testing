@@ -1,0 +1,23 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Create an S3 Bucket
+
+Parameters:
+
+  Environment:
+    Type: String
+
+  BucketName:
+    Type: String
+
+Mappings: {}
+
+Resources:
+
+  S3BucketAllowedAlternateegion:
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: !Sub ${BucketName}-${Environment}
+
+Outputs: {}
