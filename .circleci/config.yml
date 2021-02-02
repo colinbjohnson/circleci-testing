@@ -6,8 +6,8 @@ jobs:
     docker:
       - image: cimg/python:3.9.1
     steps:
-      - run: apt update
-      - run: apt -y install awscli
+      - run: sudo apt update
+      - run: sudo apt -y install awscli
       # options multiline run commands
       # > 
       - run: >
