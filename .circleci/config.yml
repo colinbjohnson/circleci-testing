@@ -1,19 +1,14 @@
 version: 2.1
 
-
-orbs:
-  aws-ecr: circleci/aws-ecr@6.15.0
-
 jobs:
 
   build:
     steps:
-      - aws-ecr/build-and-push-image:
-          repo: bc/paylocity-employee-management
-          tag: << parameters.environment >>-${CIRCLE_SHA1}
-      - run: ls -la
-      - persist_to_workspace:
-          path: ./ops/infra.yaml
+      - run: >
+        aws cloudformation deploy --stack-name cloudavail-s3
+          --template-file ./ops/cloudavail-s3.yaml
+          --parameter-overrides BucketName=cloudavail-s3
+                                Environment=dev
 
 workflows:
 
@@ -22,4 +17,3 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-
