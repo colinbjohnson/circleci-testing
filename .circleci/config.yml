@@ -11,8 +11,8 @@ jobs:
       # options multiline run commands
       # > 
       - run: >
-        echo "this is a test of a
-             multiline string"
+          echo "this is a test of a
+          multiline string"
 
       # - run: >
       #     aws cloudformation deploy --stack-name cloudavail-s3
