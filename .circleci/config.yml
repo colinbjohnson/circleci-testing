@@ -12,6 +12,11 @@ jobs:
                 circleci-agent step halt
             fi
       - run: echo "After Branch Check"
+  deploy:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - run: echo "Deploy Will Run"
 
 workflows:
 
