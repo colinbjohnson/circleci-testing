@@ -7,11 +7,9 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - checkout
-      - run: |
-            if [ "$CIRCLE_BRANCH" = "conditional" ]; then
-                circleci-agent step halt
-            fi
-      - run: echo "After Branch Check"
+      - run: echo $CIRCLE_COMPARE_URL
+    environment:
+      CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
   deploy:
     docker:
       - image: cimg/base:2020.01
