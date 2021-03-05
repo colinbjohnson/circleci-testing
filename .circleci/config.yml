@@ -4,29 +4,17 @@ jobs:
 
   build:
     docker:
-      - image: cimg/python:3.9.1
+      - image: cimg/base:2020.01
     steps:
       - checkout
-      - run: sudo apt update
-      - run: sudo apt -y install awscli
-      # options multiline run commands
-      # > 
-      - run: >
-          echo "this is a test of a
-          multiline string"
-      # the command below fails
-      # - run: >
-      #     aws cloudformation deploy --stack-name cloudavail-s3
-      #     --template-file ./ops/cloudavail-s3.yaml
-      #     --parameter-overrides BucketName=cloudavail-s3
-      #       Environment=test
-      #     --no-fail-on-empty-changeset
-      - run: |
-          aws cloudformation deploy --stack-name cloudavail-s3 \
-          --template-file ./ops/cloudavail-s3.yaml \
-          --parameter-overrides BucketName=cloudavail-s3 \
-                                Environment=test \
-          --no-fail-on-empty-changeset
+      - run: echo $CIRCLE_COMPARE_URL
+    environment:
+      CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
+  deploy:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - run: echo "Deploy Will Run"
 
 workflows:
 
@@ -34,5 +22,7 @@ workflows:
 
   build_and_deploy:
     jobs:
-      - build:
-          context: test
+      - build
+      - deploy:
+          requires:
+            - build
