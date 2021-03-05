@@ -11,6 +11,7 @@ jobs:
             if [ "$CIRCLE_BRANCH" = "conditional" ]; then
                 circleci-agent step halt
             fi
+      - run: echo "After Branch Check"
 
 workflows:
 
