@@ -4,29 +4,13 @@ jobs:
 
   build:
     docker:
-      - image: cimg/python:3.9.1
+      - image: cimg/base:2020.01
     steps:
       - checkout
-      - run: sudo apt update
-      - run: sudo apt -y install awscli
-      # options multiline run commands
-      # > 
-      - run: >
-          echo "this is a test of a
-          multiline string"
-      # the command below fails
-      # - run: >
-      #     aws cloudformation deploy --stack-name cloudavail-s3
-      #     --template-file ./ops/cloudavail-s3.yaml
-      #     --parameter-overrides BucketName=cloudavail-s3
-      #       Environment=test
-      #     --no-fail-on-empty-changeset
       - run: |
-          aws cloudformation deploy --stack-name cloudavail-s3 \
-          --template-file ./ops/cloudavail-s3.yaml \
-          --parameter-overrides BucketName=cloudavail-s3 \
-                                Environment=test \
-          --no-fail-on-empty-changeset
+            if [ "$CIRCLE_BRANCH" = "conditional" ]; then
+                circleci-agent step halt
+            fi
 
 workflows:
 
@@ -34,5 +18,4 @@ workflows:
 
   build_and_deploy:
     jobs:
-      - build:
-          context: test
+      - build
