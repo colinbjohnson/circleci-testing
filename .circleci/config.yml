@@ -13,7 +13,6 @@ jobs:
             fi
       - run: echo "After Branch Check"
   deploy:
-
     docker:
       - image: cimg/base:2020.01
     steps:
