@@ -7,9 +7,11 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - checkout
-      - run: echo $CIRCLE_COMPARE_URL
+      - run: echo $GIT_BASE_REVISION
+      - run: echo $GIT_REVISION
     environment:
-      CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
+      GIT_BASE_REVISION: << pipeline.git.base_revision >>
+      GIT_REVISION: <<pipeline.git.revision>>
   deploy:
     docker:
       - image: cimg/base:2020.01
