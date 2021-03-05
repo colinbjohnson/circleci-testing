@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run: echo $GIT_BASE_REVISION
       - run: echo $GIT_REVISION
+      - run: git diff --name-only $GIT_BASE_REVISION $GIT_REVISION
     environment:
       GIT_BASE_REVISION: << pipeline.git.base_revision >>
       GIT_REVISION: <<pipeline.git.revision>>
