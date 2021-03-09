@@ -2,7 +2,8 @@ version: 2.1
 
 jobs:
   trigger-workflows:
-    executor: node
+    docker:
+      - image: cimg/base:2020.01
     steps:
       - checkout
       - run:
