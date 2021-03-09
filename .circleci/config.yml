@@ -44,7 +44,7 @@ workflows:
           filters:
             branches:
               only:
-                - multiple-apps-single-repo
+                - master
           context:
             - test
 
