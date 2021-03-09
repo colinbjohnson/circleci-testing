@@ -51,9 +51,11 @@ workflows:
   package01:
     when: << pipeline.parameters.package01 >>
     jobs:
-      - build
+      - build:
+          package: package01
 
   package02:
     when: << pipeline.parameters.package02 >>
     jobs:
-      - build
+      - build:
+          package: package02
