@@ -7,7 +7,7 @@ parameters:
   package01:
     type: boolean
     default: false
-  package01:
+  package02:
     type: boolean
     default: false
 
