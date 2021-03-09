@@ -23,12 +23,15 @@ jobs:
           command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
 
   build:
+    parameters:
+      package:
+        type: string
     docker:
       - image: cimg/base:2020.01
     steps:
       - checkout
       - run:
-          command: echo "Build Called"
+          command: echo "Build Called for Package << parameters.package >>"
 
 
 workflows:
