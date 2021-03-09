@@ -1,6 +1,19 @@
 version: 2.1
 
+parameters:
+  trigger:
+    type: boolean
+    default: true
+  package01:
+    type: boolean
+    default: false
+  package01:
+    type: boolean
+    default: false
+
+
 jobs:
+
   trigger-workflows:
     docker:
       - image: cimg/base:2020.01
@@ -8,6 +21,15 @@ jobs:
       - checkout
       - run:
           command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
+
+  build:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - run:
+          command: echo "Build Called"
+
 
 workflows:
 
@@ -22,3 +44,13 @@ workflows:
                 - multiple-apps-single-repo
           context:
             - test
+
+  package01:
+    when: << pipeline.parameters.package01 >>
+    jobs:
+      - build
+
+  package02:
+    when: << pipeline.parameters.package02 >>
+    jobs:
+      - build
