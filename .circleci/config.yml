@@ -1,33 +1,61 @@
 version: 2.1
 
+parameters:
+  trigger:
+    type: boolean
+    default: true
+  package01:
+    type: boolean
+    default: false
+  package02:
+    type: boolean
+    default: false
+
+
 jobs:
 
-  build:
+  trigger-workflows:
     docker:
       - image: cimg/base:2020.01
     steps:
       - checkout
-      - run: echo $GIT_BASE_REVISION
-      - run: echo $GIT_REVISION
-      - run: git diff --name-only $GIT_BASE_REVISION $GIT_REVISION directory01
-      - run: git diff --name-only $GIT_BASE_REVISION $GIT_REVISION directory02
-    environment:
-      GIT_BASE_REVISION: << pipeline.git.base_revision >>
-      GIT_REVISION: <<pipeline.git.revision>>
-  deploy:
+      - run:
+          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
+
+  build:
+    parameters:
+      package:
+        type: string
     docker:
       - image: cimg/base:2020.01
     steps:
-      - run: echo "Deploy Will Run"
+      - checkout
+      - run:
+          command: echo "Build Called for Package << parameters.package >>"
+
 
 workflows:
 
   version: 2
 
-  build_and_deploy:
+  trigger-workflows:
     jobs:
-      - build:
+      - trigger-workflows:
           filters:
             branches:
               only:
                 - master
+          context:
+            - test
+
+  package01:
+    when: << pipeline.parameters.package01 >>
+    jobs:
+      - build:
+          package: package01
+
+  package02:
+    when: << pipeline.parameters.package02 >>
+    jobs:
+      - build:
+          package: package02
